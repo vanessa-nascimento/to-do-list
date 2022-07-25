@@ -11,15 +11,25 @@ interface Task {
 }
 
 export function TaskList() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([
+      {
+        id: 2,
+        title: 'Tomar café da manhã',
+        isComplete: false
+      },
+      {
+        id: 3,
+        title: 'Passear com o cachorro',
+        isComplete: false
+      }
+  ]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
-  const [randomId, setRandomId] = useState(0);
+  const [randomId, setRandomId] = useState(3);
   const [errorTask, setErrorTask] = useState(false);
   
   function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
     setRandomId(randomId + 1);
-
     newTaskTitle ? (
       setTasks(
         [...tasks, {
@@ -36,6 +46,7 @@ export function TaskList() {
 
   function handleToggleTaskCompletion(id: number) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
+    
     setTasks(tasks.map(task => task.id === id ? {...task, isComplete: true} : task))
   }
 
@@ -53,6 +64,7 @@ export function TaskList() {
           <input 
             type="text" 
             placeholder="Adicionar novo todo" 
+            data-cy="new-task"
             onChange={(e) => setNewTaskTitle(e.target.value)}
             value={newTaskTitle}
           />
@@ -68,14 +80,14 @@ export function TaskList() {
       </header>
 
       <main>
-        <ul>
+        <ul className="todo-list">
           {tasks.map(task => (
             <li key={task.id}>
-              <div className={task.isComplete ? 'completed' : ''} data-testid="task" >
+              <div className={task.isComplete ? 'completed' : 'active'} data-testid="task" >
                 <label className="checkbox-container">
                   <input 
                     type="checkbox"
-                    readOnly
+                    data-testid="task-check"
                     checked={task.isComplete}
                     onClick={() => handleToggleTaskCompletion(task.id)}
                   />
