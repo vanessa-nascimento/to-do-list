@@ -1,8 +1,6 @@
 const webdriver = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
-const chromedriver = require('chromedriver');
-
 const {By, Builder} = webdriver;
+
 var assert = require('assert');
 
 (async function itemsToDoListDefault() {
@@ -47,7 +45,6 @@ var assert = require('assert');
         await driver.findElement(By.css('.checkmark')).click();
         assert.ok(await driver.findElement(By.css('.completed')));
 
-        //poder checar um item concluído
         let taskCompleted = await driver.findElement(By.css('.completed'));
         let parentCheck = await taskCompleted.findElement(By.xpath("./.."));
 
@@ -68,47 +65,3 @@ var assert = require('assert');
         await driver.quit();
     }   
 })();
-
-
-// (async function addItemsList() {
-//     let driver = await new Builder().forBrowser('chrome').build();
-//     try {
-//         await driver.get('http://localhost:8080/');
-
-//         let elements = await driver.findElements(By.css('.todo-list li'));
-        
-//         let task = 'Estudar testes e2e';
-//         await driver.findElement(By.id('new-task')).sendKeys(task);  
-//         await driver.findElement(By.id('add-task-button')).sendKeys(task);   
-
-
-//         assert.strictEqual(await elements.length, 3);
-
-//         for(let e of elements) {
-//             assert.strictEqual(await e.getText(), 'Estudar testes e2e');
-//         }
-//     }
-//     finally {
-//         await driver.quit();
-//     }
-// })();
-
-// (async function openToDoApp() {
-//     try {
-//       let options = new chrome.Options();
-//       let driver = await new Builder()
-//                   .setChromeOptions(options)
-//                   .forBrowser('chrome')
-//                   .build();
-//       await driver.get('https://www.google.com');
-      
-//       const vegetable = driver.findElement(By.className('tomatoes'));
-  
-      
-//       await driver.quit();
-  
-  
-//     } catch (error) {
-//       console.log(error)
-//     }
-//   })();
