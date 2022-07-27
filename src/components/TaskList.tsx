@@ -24,7 +24,7 @@ export function TaskList() {
       }
   ]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
-  const [randomId, setRandomId] = useState(3);
+  const [randomId, setRandomId] = useState(4);
   const [errorTask, setErrorTask] = useState(false);
   
   function handleCreateNewTask() {
@@ -63,12 +63,13 @@ export function TaskList() {
         <div className="input-group">
           <input 
             type="text" 
+            id="new-task"
             placeholder="Adicionar novo todo" 
             data-cy="new-task"
             onChange={(e) => setNewTaskTitle(e.target.value)}
             value={newTaskTitle}
           />
-          <button type="submit" data-testid="add-task-button" onClick={handleCreateNewTask}>
+          <button type="submit" id='add-task-button' data-testid="add-task-button" onClick={handleCreateNewTask}>
             <FiCheckSquare size={16} color="#fff"/>
           </button>
         </div>
@@ -87,6 +88,7 @@ export function TaskList() {
                 <label className="checkbox-container">
                   <input 
                     type="checkbox"
+                    id="task-check"
                     data-testid="task-check"
                     checked={task.isComplete}
                     onClick={() => handleToggleTaskCompletion(task.id)}
@@ -96,7 +98,7 @@ export function TaskList() {
                 <p>{task.title}</p>
               </div>
 
-              <button type="button" data-testid="remove-task-button" onClick={() => handleRemoveTask(task.id)}>
+              <button type="button" id="remove-task-button" data-testid="remove-task-button" onClick={() => handleRemoveTask(task.id)}>
                 <FiTrash size={16}/>
               </button>
             </li>
